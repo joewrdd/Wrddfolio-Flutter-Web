@@ -1,16 +1,1 @@
-{
-  "hosting": {
-    "public": "build/web",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
-}
+{"hosting":{"public":"build/web","ignore":["firebase.json","**/.*","**/node_modules/**"],"rewrites":[{"source":"**","destination":"/index.html"}]},"flutter":{"platforms":{"android":{"default":{"projectId":"wrddx-portfolio","appId":"1:826792443900:android:23a3af389eef1708473c79","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"wrddx-portfolio","appId":"1:826792443900:ios:5a269851543be566473c79","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"macos":{"default":{"projectId":"wrddx-portfolio","appId":"1:826792443900:ios:5a269851543be566473c79","uploadDebugSymbols":false,"fileOutput":"macos/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"wrddx-portfolio","configurations":{"android":"1:826792443900:android:23a3af389eef1708473c79","ios":"1:826792443900:ios:5a269851543be566473c79","macos":"1:826792443900:ios:5a269851543be566473c79","web":"1:826792443900:web:a8abe01ba44e9e28473c79","windows":"1:826792443900:web:c7c556da44bbe572473c79"}}}}}}

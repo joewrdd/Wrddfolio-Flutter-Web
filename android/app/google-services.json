@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "826792443900",
+    "project_id": "wrddx-portfolio",
+    "storage_bucket": "wrddx-portfolio.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826792443900:android:23a3af389eef1708473c79",
+        "android_client_info": {
+          "package_name": "com.example.wrddfolio_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpqtIiF8bVMUcm0vNbxCOJpwIrdvEjd7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
