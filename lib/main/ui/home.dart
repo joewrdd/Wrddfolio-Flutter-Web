@@ -125,6 +125,7 @@ class MainScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                      // Spacer
                       const SizedBox(height: 45),
                     ],
                   ),
