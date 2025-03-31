@@ -38,7 +38,6 @@ class _AnimatedButtonState extends State<AnimatedButton>
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
-    // Start the animation when widget is built
     _controller.forward();
   }
 
@@ -55,46 +54,55 @@ class _AnimatedButtonState extends State<AnimatedButton>
       child: MouseRegion(
         onEnter: (_) => setState(() => _isHovered = true),
         onExit: (_) => setState(() => _isHovered = false),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          constraints: BoxConstraints(maxWidth: widget.width),
-          decoration: BoxDecoration(
-            gradient: RadialGradient(
-              radius: 4,
-              focalRadius: 300,
-              colors: [
-                ConstantColors.primaryDark.withOpacity(_isHovered ? 0.6 : 0.4),
-                ConstantColors.neonPurple.withOpacity(_isHovered ? 0.7 : 0.5),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(8),
-            boxShadow:
-                _isHovered
-                    ? [
-                      BoxShadow(
-                        color: const Color(0xFF7042F8).withOpacity(0.3),
-                        blurRadius: 8,
-                        spreadRadius: 2,
-                      ),
-                    ]
-                    : [],
-          ),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  widget.text,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
+        child: GestureDetector(
+          onTap: widget.onTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            width: widget.width,
+            decoration: BoxDecoration(
+              gradient: RadialGradient(
+                radius: 4,
+                focalRadius: 300,
+                colors: [
+                  ConstantColors.primaryDark.withOpacity(
+                    _isHovered ? 0.6 : 0.4,
                   ),
-                ),
-                SizedBox(width: 2.4),
-                Icon(widget.icon, color: Colors.white, size: 17),
-              ],
+                  ConstantColors.neonPurple.withOpacity(_isHovered ? 0.7 : 0.5),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(8),
+              boxShadow:
+                  _isHovered
+                      ? [
+                        BoxShadow(
+                          color: const Color(0xFF7042F8).withOpacity(0.3),
+                          blurRadius: 8,
+                          spreadRadius: 2,
+                        ),
+                      ]
+                      : [],
+            ),
+            child: Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.text,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  if (widget.icon != null) ...[
+                    SizedBox(width: 8),
+                    Icon(widget.icon, color: Colors.white, size: 17),
+                  ],
+                ],
+              ),
             ),
           ),
         ),

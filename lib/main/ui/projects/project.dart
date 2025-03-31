@@ -8,6 +8,8 @@ import 'package:wrddfolio_flutter/main/ui/projects/widgets/project_card.dart';
 import 'package:wrddfolio_flutter/utils/constants/colors.dart';
 import 'package:wrddfolio_flutter/utils/constants/images.dart';
 import 'package:wrddfolio_flutter/utils/constants/texts.dart';
+import 'package:wrddfolio_flutter/utils/func/responsive_helper.dart';
+import 'package:wrddfolio_flutter/utils/widgets/responsive_layout.dart';
 
 class ProjectSection extends StatelessWidget {
   const ProjectSection({super.key, required this.projects});
@@ -16,6 +18,38 @@ class ProjectSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final crossAxisCount = ResponsiveHelper.responsiveValue<int>(
+      context: context,
+      defaultValue: 1,
+      tablet: 2,
+      desktop: 2,
+      largeDesktop: 3,
+    );
+
+    final horizontalPadding = ResponsiveHelper.responsiveValue<double>(
+      context: context,
+      defaultValue: 16.0,
+      tablet: 24.0,
+      desktop: 36.0,
+      largeDesktop: 48.0,
+    );
+
+    final mainAxisExtent = ResponsiveHelper.responsiveValue<double>(
+      context: context,
+      defaultValue: 480.0,
+      tablet: 500.0,
+      desktop: 520.0,
+      largeDesktop: 520.0,
+    );
+
+    final gridSpacing = ResponsiveHelper.responsiveValue<double>(
+      context: context,
+      defaultValue: 16.0,
+      tablet: 20.0,
+      desktop: 24.0,
+      largeDesktop: 30.0,
+    );
+
     return Center(
       child: Column(
         children: [
@@ -63,21 +97,25 @@ class ProjectSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 32),
-          Padding(
-            padding: const EdgeInsets.only(left: 36, right: 36),
-            child: GridView.builder(
-              itemCount: projects.length,
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: 530,
-                mainAxisSpacing: 24,
-                crossAxisSpacing: 24,
+
+          ResponsiveConstrainedBox(
+            desktopMaxWidth: 1800,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+              child: GridView.builder(
+                itemCount: projects.length,
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: crossAxisCount,
+                  mainAxisExtent: mainAxisExtent,
+                  mainAxisSpacing: gridSpacing,
+                  crossAxisSpacing: gridSpacing,
+                ),
+                itemBuilder:
+                    (context, index) => ProjectCard(project: projects[index]),
               ),
-              itemBuilder:
-                  (context, index) => ProjectCard(project: projects[index]),
             ),
           ),
         ],

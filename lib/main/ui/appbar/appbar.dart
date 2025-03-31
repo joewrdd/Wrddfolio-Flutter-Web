@@ -8,6 +8,7 @@ import 'package:wrddfolio_flutter/routes/routes.dart';
 import 'package:wrddfolio_flutter/utils/constants/colors.dart';
 import 'package:wrddfolio_flutter/utils/constants/images.dart';
 import 'package:wrddfolio_flutter/utils/enums/image_type.dart';
+import 'package:wrddfolio_flutter/utils/func/responsive_helper.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
@@ -15,8 +16,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final appbarController = Get.put(AppbarController());
+
+    // Calculate responsive height for appbar
+    final appBarHeight = ResponsiveHelper.responsiveValue<double>(
+      context: context,
+      defaultValue: 90.0,
+      tablet: 90.0,
+      desktop: 90.0,
+      largeDesktop: 100.0,
+    );
+
     return AppBar(
-      toolbarHeight: 90,
+      toolbarHeight: appBarHeight,
       backgroundColor: const Color.fromARGB(255, 8, 1, 21),
       elevation: 0,
       automaticallyImplyLeading: false,
@@ -27,7 +38,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
               child: Container(
                 width: double.infinity,
-                height: 90,
+                height: appBarHeight,
                 color: Colors.black.withOpacity(0.2),
               ),
             ),
@@ -55,16 +66,40 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       titleSpacing: 0,
       leading: Container(
         height: 200,
-        width: 150,
-        padding: const EdgeInsets.only(left: 16),
+        width: ResponsiveHelper.responsiveValue(
+          context: context,
+          defaultValue: 100.0,
+          tablet: 120.0,
+          desktop: 150.0,
+        ),
+        padding: EdgeInsets.only(
+          left: ResponsiveHelper.responsiveValue(
+            context: context,
+            defaultValue: 16.0,
+            tablet: 20.0,
+            desktop: 24.0,
+          ),
+        ),
         child: Align(
           alignment: Alignment.centerLeft,
           child: Row(
             children: [
               CircularImage(
                 image: ConstantImages.mainLogo,
-                width: 80,
-                height: 80,
+                width: ResponsiveHelper.responsiveValue(
+                  context: context,
+                  defaultValue: 70.0,
+                  tablet: 80.0,
+                  desktop: 80.0,
+                  largeDesktop: 90.0,
+                ),
+                height: ResponsiveHelper.responsiveValue(
+                  context: context,
+                  defaultValue: 70.0,
+                  tablet: 80.0,
+                  desktop: 80.0,
+                  largeDesktop: 90.0,
+                ),
                 imageType: ImageType.asset,
                 backgroundColor: Colors.transparent,
               ),
@@ -72,59 +107,153 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
-      leadingWidth: 100,
-      title: CircularContainer(
-        height: 50,
-        width: 550,
-        showBorder: true,
-        borderColor: ConstantColors.primaryDark.withOpacity(0.2),
-        backgroundColor: Colors.transparent,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                onPressed:
-                    () => appbarController.appItemOnTap(MyRoutes.aboutMe),
-                child: Text(
-                  'ABOUT ME',
-                  style: TextStyle(color: ConstantColors.white, fontSize: 12),
+      leadingWidth: ResponsiveHelper.responsiveValue(
+        context: context,
+        defaultValue: 100.0,
+        tablet: 120.0,
+        desktop: 150.0,
+      ),
+      title: Visibility(
+        visible: !ResponsiveHelper.isMobile(context),
+        child: CircularContainer(
+          height: 50,
+          width: ResponsiveHelper.responsiveValue(
+            context: context,
+            defaultValue: 400.0,
+            tablet: 450.0,
+            desktop: 550.0,
+            largeDesktop: 650.0,
+          ),
+          showBorder: true,
+          borderColor: ConstantColors.primaryDark.withOpacity(0.2),
+          backgroundColor: Colors.transparent,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed:
+                      () => appbarController.appItemOnTap(MyRoutes.aboutMe),
+                  child: Text(
+                    'ABOUT ME',
+                    style: TextStyle(
+                      color: ConstantColors.white,
+                      fontSize: ResponsiveHelper.responsiveValue(
+                        context: context,
+                        defaultValue: 12.0,
+                        tablet: 12.0,
+                        desktop: 12.0,
+                        largeDesktop: 14.0,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              TextButton(
-                onPressed: () => appbarController.appItemOnTap(MyRoutes.skills),
-                child: Text(
-                  'SKILLS',
-                  style: TextStyle(color: ConstantColors.white, fontSize: 12),
+                TextButton(
+                  onPressed:
+                      () => appbarController.appItemOnTap(MyRoutes.skills),
+                  child: Text(
+                    'SKILLS',
+                    style: TextStyle(
+                      color: ConstantColors.white,
+                      fontSize: ResponsiveHelper.responsiveValue(
+                        context: context,
+                        defaultValue: 12.0,
+                        tablet: 12.0,
+                        desktop: 12.0,
+                        largeDesktop: 14.0,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              TextButton(
-                onPressed:
-                    () => appbarController.appItemOnTap(MyRoutes.projects),
-                child: Text(
-                  'PROJECTS',
-                  style: TextStyle(color: ConstantColors.white, fontSize: 12),
+                TextButton(
+                  onPressed:
+                      () => appbarController.appItemOnTap(MyRoutes.projects),
+                  child: Text(
+                    'PROJECTS',
+                    style: TextStyle(
+                      color: ConstantColors.white,
+                      fontSize: ResponsiveHelper.responsiveValue(
+                        context: context,
+                        defaultValue: 12.0,
+                        tablet: 12.0,
+                        desktop: 12.0,
+                        largeDesktop: 14.0,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 25),
+          padding: EdgeInsets.only(
+            right: ResponsiveHelper.responsiveValue(
+              context: context,
+              defaultValue: 15.0,
+              tablet: 20.0,
+              desktop: 25.0,
+              largeDesktop: 30.0,
+            ),
+          ),
           child: Row(
             children: [
-              Image.asset(ConstantImages.xLogo, width: 30, height: 30),
+              Image.asset(
+                ConstantImages.xLogo,
+                width: ResponsiveHelper.responsiveValue(
+                  context: context,
+                  defaultValue: 24.0,
+                  tablet: 28.0,
+                  desktop: 30.0,
+                  largeDesktop: 32.0,
+                ),
+                height: ResponsiveHelper.responsiveValue(
+                  context: context,
+                  defaultValue: 24.0,
+                  tablet: 28.0,
+                  desktop: 30.0,
+                  largeDesktop: 32.0,
+                ),
+              ),
               SizedBox(width: 12),
               Image.asset(
                 ConstantImages.gitHubWhiteLogo,
-                width: 30,
-                height: 30,
+                width: ResponsiveHelper.responsiveValue(
+                  context: context,
+                  defaultValue: 24.0,
+                  tablet: 28.0,
+                  desktop: 30.0,
+                  largeDesktop: 32.0,
+                ),
+                height: ResponsiveHelper.responsiveValue(
+                  context: context,
+                  defaultValue: 24.0,
+                  tablet: 28.0,
+                  desktop: 30.0,
+                  largeDesktop: 32.0,
+                ),
               ),
               SizedBox(width: 12),
-              Image.asset(ConstantImages.toolVercel, width: 30, height: 30),
+              Image.asset(
+                ConstantImages.toolVercel,
+                width: ResponsiveHelper.responsiveValue(
+                  context: context,
+                  defaultValue: 24.0,
+                  tablet: 28.0,
+                  desktop: 30.0,
+                  largeDesktop: 32.0,
+                ),
+                height: ResponsiveHelper.responsiveValue(
+                  context: context,
+                  defaultValue: 24.0,
+                  tablet: 28.0,
+                  desktop: 30.0,
+                  largeDesktop: 32.0,
+                ),
+              ),
             ],
           ),
         ),
@@ -133,5 +262,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(90);
+  Size get preferredSize => Size.fromHeight(
+    ResponsiveHelper.responsiveValue<double>(
+      context: Get.context!,
+      defaultValue: 90.0,
+      tablet: 90.0,
+      desktop: 90.0,
+      largeDesktop: 100.0,
+    ),
+  );
 }

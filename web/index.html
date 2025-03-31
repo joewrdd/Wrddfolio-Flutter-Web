@@ -1,38 +1,199 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+  <head>
+    <base href="$FLUTTER_BASE_HREF" />
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="description" content="Personal Portfolio Project." />
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+    <!-- iOS meta tags & icons -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="wrddfolio_flutter" />
+    <link rel="apple-touch-icon" href="assets/mainLogo.png" />
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="$FLUTTER_BASE_HREF">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/mainLogo.png" />
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+    <title>WrddX Portfolio</title>
+    <link rel="manifest" href="manifest.json" />
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="wrddfolio_flutter">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #080115;
+        font-family: "Roboto", sans-serif;
+      }
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+      .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: radial-gradient(ellipse at center, #130b30 0%, #080115 70%);
+        position: relative;
+        overflow: hidden;
+      }
 
-  <title>wrddfolio_flutter</title>
-  <link rel="manifest" href="manifest.json">
-</head>
-<body>
-  <script src="flutter_bootstrap.js" async></script>
-</body>
+      .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .star {
+        position: absolute;
+        background-color: white;
+        border-radius: 50%;
+        opacity: 0;
+        animation: twinkle 5s infinite;
+      }
+
+      @keyframes twinkle {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .logo {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 30px;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .loader {
+        width: 180px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .loader:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, #7042f8, #b86af5);
+        animation: loading 3s infinite;
+        border-radius: 10px;
+        box-shadow: 0 0 20px #7042f8;
+      }
+
+      @keyframes loading {
+        0% {
+          width: 0;
+        }
+        50% {
+          width: 100%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+
+      .loading-text {
+        margin-top: 20px;
+        color: white;
+        font-size: 16px;
+        letter-spacing: 2px;
+        opacity: 0.8;
+      }
+
+      .flutter-loader {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Custom Loading Screen -->
+    <div id="loading-container" class="loading-container">
+      <div class="stars" id="stars"></div>
+      <img src="assets/mainLogo.png" alt="Logo" class="logo" />
+      <div class="loader"></div>
+      <div class="loading-text">PROCESSING WRDDX PORTFOLIO...</div>
+    </div>
+
+    <script>
+      // Create stars dynamically
+      function createStars() {
+        const stars = document.getElementById("stars");
+        const count = 100;
+
+        for (let i = 0; i < count; i++) {
+          const star = document.createElement("div");
+          star.classList.add("star");
+
+          // Random position
+          const x = Math.random() * 100;
+          const y = Math.random() * 100;
+
+          // Random size
+          const size = Math.random() * 2;
+
+          // Random delay
+          const delay = Math.random() * 5;
+
+          star.style.left = `${x}%`;
+          star.style.top = `${y}%`;
+          star.style.width = `${size}px`;
+          star.style.height = `${size}px`;
+          star.style.animationDelay = `${delay}s`;
+
+          stars.appendChild(star);
+        }
+      }
+
+      // Create stars when DOM is loaded
+      document.addEventListener("DOMContentLoaded", createStars);
+
+      // Hide loading screen when Flutter app is loaded
+      window.addEventListener("load", function () {
+        const loadingContainer = document.getElementById("loading-container");
+
+        // Wait for Flutter to initialize
+        window.addEventListener("flutter-first-frame", function () {
+          // Fade out loading screen
+          loadingContainer.style.transition = "opacity 0.5s ease-out";
+          loadingContainer.style.opacity = "0";
+
+          // Remove from DOM after transition
+          setTimeout(function () {
+            loadingContainer.style.display = "none";
+          }, 500);
+        });
+      });
+    </script>
+
+    <script src="flutter_bootstrap.js" async></script>
+  </body>
 </html>
