@@ -69,10 +69,7 @@ A modern, responsive, and visually stunning portfolio website built with Flutter
 ## Portfolio Demo
 
 <div align="center">
-  <video width="100%" controls>
-    <source src="public/vidd.mov" type="video/quicktime">
-    Your browser does not support the video tag.
-  </video>
+  <img src="public/myMain.png" alt="WrddFolio Screenshot" width="100%">
 </div>
 
 ### Prerequisites
