@@ -1,6 +1,7 @@
 # WrddFolio - Flutter Portfolio Website
 
 A modern, responsive, and visually stunning portfolio website built with Flutter Web, featuring space-themed design elements, interactive components, and seamless responsiveness across all device sizes.
+(Personal Note: "Nav Bar Centering")
 
 ## Features
 
